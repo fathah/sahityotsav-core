@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { createInstance } from "./func";
 import toast from "react-hot-toast";
 
-const AddForm = () => {
+const AddForm = ({nextPort}:{nextPort:number}) => {
 
     const [loading, setLoading]=useState(false);
 
@@ -15,7 +15,7 @@ const AddForm = () => {
     const formik = useFormik({
         initialValues:{
             name:"",
-            port:undefined,
+            port:nextPort,
             domain:""
         },
         validationSchema: Yup.object({
@@ -33,6 +33,7 @@ const AddForm = () => {
             }else{
                 toast.error(resp?.message??"Failed to Add Instance");
             }
+            setLoading(false);
         }
     });
     return (

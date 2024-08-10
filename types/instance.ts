@@ -1,0 +1,1 @@
+export type InstanceStatus = 'active' | 'building' | 'built' | 'error' | 'pending' | 'installing' | 'installed' | 'configset';

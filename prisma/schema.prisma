@@ -16,7 +16,7 @@ model instance {
   domain  String
   port    Int
   version String?
-  status  String  @default("active")
+  status  String  @default("pending")
 
   added_at   DateTime @default(now())
   updated_at DateTime @updatedAt

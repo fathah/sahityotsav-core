@@ -40,11 +40,12 @@ const InstallApp = ({ instance, isInstalled }: { instance: string, isInstalled: 
         }
     }
     return (
-        <div className="border p-10 my-5 bg-red-50">
-            <h1 className="text-xl text-red-600  flex items-center gap-x-2  ">
+        <div className="border p-10 my-5 bg-red-50 inl fullcenter">
+            <h1 className=" text-red-600  flex items-center gap-x-2 text-center ">
                 {cloning ?
-                    <> <BsFillLightningChargeFill className="text-2xl" /> Processing...</>
-                    : <><MdError className="text-2xl" /> Sahityotsav App not installed for this instance</>
+                    <div className="fullcenter ">
+                         <BsFillLightningChargeFill className="text-5xl" /> Processing...</div>
+                    : <div className="fullcenter"><MdError className="text-5xl" /> Sahityotsav App not installed for this instance</div>
                 }
 
             </h1>
@@ -53,7 +54,7 @@ const InstallApp = ({ instance, isInstalled }: { instance: string, isInstalled: 
                     <Loader />
                     <h2 className="py-2">Cloning <span className="bg-gray-200 px-1 font-mono">@fathah/sahityotsav</span>  Repo</h2>
                 </div> :
-                    <button className="btn my-4 gbg text-white"
+                    <button className="btn my-4 bg-red-600 ring-red-700 text-white"
                         onClick={install}
                     >Install Now</button>
             }

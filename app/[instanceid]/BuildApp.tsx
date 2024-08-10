@@ -8,6 +8,7 @@ import { BsFillLightningChargeFill } from "react-icons/bs";
 import toast from "react-hot-toast";
 import { buildApp } from "./func/build";
 import { useRouter } from "next/navigation";
+import InstanceModel from "@/models/instance/instance_model";
 
 const BuildApp = ({ instance }: { instance: string }) => {
   
@@ -27,10 +28,14 @@ const BuildApp = ({ instance }: { instance: string }) => {
         });
         if (perm.isConfirmed) {
             setBuilding(true);
+            await InstanceModel.updateStatus(instance,'building');
+
             const resp = await buildApp(instance);
             if (!resp) {
                 toast.error("Failed to Build")
             } else {
+                await InstanceModel.updateStatus(instance,'built');
+
                 toast.success("Prodcution App Built");
                 router.refresh();
             }

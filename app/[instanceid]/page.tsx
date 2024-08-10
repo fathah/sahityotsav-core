@@ -17,6 +17,10 @@ const InstanceEdit = async({params}:{params:any}) => {
 
     const instance  = await InstanceModel.single(instanceid);
 
+    if(!instance){
+        return <div className="h-screen fullcenter">No Instance Found</div>
+    }
+
     const createFolder = await createFolderIfNotExists(`${Constants.PROJECT_ROOT}${instanceid}`);
     const isInstalled = await folderExists(`${Constants.PROJECT_ROOT}${instanceid}/app`)
     const hasNodeModules = await folderExists(`${Constants.PROJECT_ROOT}${instanceid}/node_modules`);
@@ -25,7 +29,7 @@ const InstanceEdit = async({params}:{params:any}) => {
 
     return (
         <AdminLayout>
-           <h1 className="text-2xl ">{instance?.name}</h1>
+           <h1 className="text-3xl font-bold text-primary ">{instance?.name}</h1>
            <h6 className="text-sm text-gray-400">{instance?.domain}</h6>
            <h6 className="inline text-xs bg-primary text-white px-2 py-1">PORT: {instance?.port}</h6>
 
@@ -36,7 +40,7 @@ const InstanceEdit = async({params}:{params:any}) => {
            <InstallApp instance={instanceid} isInstalled={isInstalled}/>
            {isInstalled && <NPMInstall hasNodeModules={hasNodeModules} instanceid={instanceid}/>}
            {
-            !buildOk.success && <SetupConfig instance={instance}/>
+           isInstalled && hasNodeModules &&  !buildOk.success && <SetupConfig instance={instance}/>
            }
            {isInstalled && hasNodeModules && buildOk.success && <BuildApp instance={instanceid}/>}
            

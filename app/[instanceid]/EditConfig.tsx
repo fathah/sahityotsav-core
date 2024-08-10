@@ -3,14 +3,13 @@
 import { useEffect, useState } from "react";
 import { getConfigFile, getEnvFile, updateConfigs } from "./func/configs";
 import { CodeiumEditor } from "@codeium/react-code-editor";
-import { writeFileContent } from "@/function/commands/file";
 import toast from "react-hot-toast";
 import { ZSubmitButton } from "@/components/widgets/Form";
 import { useRouter } from "next/navigation";
 import InstanceModel from "@/models/instance/instance_model";
 import Link from "next/link";
 
-const SetupConfig = ({instance}:{instance:any}) => {
+const EditConfigs = ({instance}:{instance:any}) => {
    const [configs, setConfigs] = useState("");
    const [env, setEnv] = useState("");
 
@@ -101,4 +100,4 @@ const SetupConfig = ({instance}:{instance:any}) => {
     );
 }
 
-export default SetupConfig;
+export default EditConfigs;
