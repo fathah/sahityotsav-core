@@ -2,11 +2,17 @@ import ToastBox from "../common/Toast";
 
 const AdminLayout = (props:any) => {
     return (
-        <div className="commonwidth py-10">
+       <main>
+        <nav className="gbg py-6 text-center text-white text-3xl font-bold">
+            Sahityotsav Core
+        </nav>
+         <div className="commonwidth py-10">
             {props.children}
 
-            <ToastBox/>
+           
         </div>
+        <ToastBox/>
+       </main>
     );
 }
 

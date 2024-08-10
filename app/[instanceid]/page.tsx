@@ -3,6 +3,10 @@ import Constants from "@/data/const";
 import { createFolderIfNotExists, folderExists } from "@/function/commands/folder";
 import InstanceModel from "@/models/instance/instance_model";
 import InstallApp from "./InstallApp";
+import BuildApp from "./BuildApp";
+import NPMInstall from "./NPM";
+import { isReadyForBuild } from "./func/build";
+import SetupConfig from "./SetupConfig";
 
 const InstanceEdit = async({params}:{params:any}) => {
     const {instanceid} = params;
@@ -15,7 +19,9 @@ const InstanceEdit = async({params}:{params:any}) => {
 
     const createFolder = await createFolderIfNotExists(`${Constants.PROJECT_ROOT}${instanceid}`);
     const isInstalled = await folderExists(`${Constants.PROJECT_ROOT}${instanceid}/app`)
+    const hasNodeModules = await folderExists(`${Constants.PROJECT_ROOT}${instanceid}/node_modules`);
 
+    const buildOk = await isReadyForBuild(instanceid);
 
     return (
         <AdminLayout>
@@ -27,7 +33,13 @@ const InstanceEdit = async({params}:{params:any}) => {
             Couldnt create project folder. Please check console.
            </div> }
 
-           <InstallApp isInstalled={isInstalled}/>
+           <InstallApp instance={instanceid} isInstalled={isInstalled}/>
+           {isInstalled && <NPMInstall hasNodeModules={hasNodeModules} instanceid={instanceid}/>}
+           {
+            !buildOk.success && <SetupConfig instance={instance}/>
+           }
+           {isInstalled && hasNodeModules && buildOk.success && <BuildApp instance={instanceid}/>}
+           
         </AdminLayout>
     );
 }

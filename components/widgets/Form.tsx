@@ -30,7 +30,8 @@ export const ZFormInput = ({formLabel,formik, name, placeHolder, type, disabled,
     );
 }
 
-export const ZFormTextArea = ({formLabel,formik, name, placeHolder, type, disabled, onBlur }:{formLabel:string,formik:any, name:string, placeHolder?:string, type?:string, disabled?:boolean, onBlur?:any}) => {
+export const ZFormTextArea = ({formLabel,formik, name, placeHolder, row, disabled, onBlur }:
+    {formLabel:string,formik:any, name:string, placeHolder?:string, row?:number, disabled?:boolean, onBlur?:any}) => {
     return (
         <div>
             <div className="zlabel">{ formLabel}</div>
@@ -43,6 +44,7 @@ export const ZFormTextArea = ({formLabel,formik, name, placeHolder, type, disabl
                 className='zinput mt-1 '
                 disabled={disabled}
                 onBlur={onBlur}
+                rows={row}
                 autoComplete="one-time-code"></textarea>
             
             <div>
